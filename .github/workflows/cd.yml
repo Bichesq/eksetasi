@@ -17,8 +17,6 @@ jobs:
   deploy-staging:
     name: Deploy to Staging
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event.workflow_run.conclusion == 'success'
-    # environment: staging
     
 
     steps:
@@ -53,7 +51,7 @@ jobs:
 
       - name: Deploy to Vercel (Staging)
         uses: amondnet/vercel-action@v25
-        # if: ${{ secrets.VERCEL_TOKEN }}
+        if: ${{ secrets.VERCEL_TOKEN }}
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
@@ -107,7 +105,7 @@ jobs:
 
       - name: Deploy to Vercel (Production)
         uses: amondnet/vercel-action@v25
-        # if: ${{ secrets.VERCEL_TOKEN }}
+        if: ${{ secrets.VERCEL_TOKEN }}
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
