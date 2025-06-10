@@ -17,7 +17,6 @@ jobs:
   deploy-staging:
     name: Deploy to Staging
     runs-on: ubuntu-latest
-    
 
     steps:
       - name: Checkout code
@@ -37,7 +36,7 @@ jobs:
         run: |
           echo "DATABASE_URL=${{ secrets.STAGING_DATABASE_URL }}" >> .env
           echo "JWT_SECRET=${{ secrets.STAGING_JWT_SECRET }}" >> .env
-          echo "NODE_ENV=production" >> .env
+          echo "NODE_ENV=staging" >> .env
 
       - name: Generate Prisma client
         run: npx prisma generate
@@ -46,7 +45,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
           JWT_SECRET: ${{ secrets.STAGING_JWT_SECRET }}
-          NODE_ENV: production
+          NODE_ENV: staging
         run: npm run build
 
       - name: Deploy to Vercel (Staging)
