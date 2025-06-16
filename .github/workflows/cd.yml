@@ -44,7 +44,9 @@ jobs:
       - name: Run database migrations (Staging)
         env:
           DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
-        run: npx prisma migrate deploy
+        run: |
+          npx prisma migrate reset --force
+          npx prisma migrate deploy
 
       - name: Verify DB connection
         env:
